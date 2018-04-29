@@ -1,5 +1,7 @@
 package com.graduate.entity;
 
+import org.nd4j.linalg.api.ndarray.INDArray;
+
 public class DV {
     private Matrix matrix;
     private double d;
@@ -23,11 +25,11 @@ public class DV {
     public void setD(double d) {
         this.d = d;
     }
-    public static Matrix[] getMatrix(DV[] dvs){
-        Matrix[] matrices = new Matrix[dvs.length];
+    public static INDArray[] getMatrix(DV[] dvs){
+        INDArray[] matrices = new INDArray[dvs.length];
         for (int i=0; i<dvs.length; i++)
         {
-            matrices[i] = dvs[i].getMatrix();
+            matrices[i] = dvs[i].getMatrix().getMatrix();
         }
         return matrices;
     }

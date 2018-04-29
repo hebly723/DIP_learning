@@ -1,6 +1,6 @@
 package com.graduate.test.dataTest;
 
-import com.graduate.dao.HashcvaDao;
+import com.graduate.dao.HashcvaMapper;
 import com.graduate.dao.HashphaDao;
 import com.graduate.dao.ImageDao;
 import com.graduate.entity.*;
@@ -24,7 +24,7 @@ public class refresh extends BaseTest{
     @Autowired
     private HashphaDao hashphaDao;
     @Autowired
-    private HashcvaDao hashcvaDao;
+    private HashcvaMapper hashcvaDao;
     @Autowired
     private ImageDao imageDao;
     private final String path = "/home/hebly723/1.jpeg";

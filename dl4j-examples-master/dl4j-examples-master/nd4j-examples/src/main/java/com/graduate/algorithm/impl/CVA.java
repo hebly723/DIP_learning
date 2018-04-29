@@ -55,8 +55,8 @@ public class CVA implements Algorithm {
 //                dctlMat.add(doubles);
             }
         }
-        System.out.println("size"+dctlMat.length);
-        System.out.println("length"+dctlMat[0].length);
+//        System.out.println("size"+dctlMat.length);
+//        System.out.println("length"+dctlMat[0].length);
         Matrix dctMat = new Matrix(dctlMat);
 
 //        System.out.println(dctMat);
@@ -67,10 +67,12 @@ public class CVA implements Algorithm {
         /**
           * 归一，类似正态
           */
-        double[][] sList = new double[dctMat.getColumnDimension()][dctMat.getRowDimension()];
-        for (int i = 0; i < dctMat.getColumnDimension(); i++) {
+        int dctMatcol = dctMat.getColumnDimension();
+        int dctMatRow = dctMat.getRowDimension();
+        double[][] sList = new double[dctMatcol][dctMatRow];
+        for (int i = 0; i < dctMatcol; i++) {
 //            double[] sdlist = new double[dctMat.getRowDimension()];
-            for (int j = 0; j < dctMat.getRowDimension(); j++) {
+            for (int j = 0; j < dctMatRow; j++) {
                 double k = urList[j][1];
                 if (k == 0)
                     k = zero;
@@ -106,7 +108,7 @@ public class CVA implements Algorithm {
 //        System.out.println("length"+comps.length);
 //        StringBuffer hashCode = new StringBuffer();
 
-        System.out.println(comps.length);
+//        System.out.println(comps.length);
 //        for (int i = 0; i < comps.length; i += 4) {
 //            int result = comps[i] * (int) Math.pow(2, 3) +
 //                comps[i + 1] * (int) Math.pow(2, 2) +

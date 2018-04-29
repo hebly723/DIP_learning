@@ -23,7 +23,7 @@ public class Matrix implements Cloneable {
 
     public Matrix(int w ,int h)
     {
-        this.matrix = Nd4j.create(h, w);
+        this.matrix = Nd4j.zeros(h, w);
     }
 
     public Matrix(ArrayList<double[]> arrayList){
@@ -84,14 +84,14 @@ public class Matrix implements Cloneable {
      */
     public Matrix plus(Matrix matrix){
         Matrix matrix1;
-        try {
+//        try {
             matrix1 = new Matrix(this.matrix.add(matrix.getMatrix()));
-        }catch (Exception e)
-        {
-            System.out.println(this.matrix);
-            System.out.println(matrix.getMatrix());
-            matrix1 = new Matrix(this.matrix.add(matrix.getMatrix()));
-        }
+//        }catch (Exception e)
+//        {
+//            System.out.println(this.matrix);
+//            System.out.println(matrix.getMatrix());
+//            matrix1 = new Matrix(this.matrix.add(matrix.getMatrix()));
+//        }
         return matrix1;
     }
 
@@ -121,7 +121,18 @@ public class Matrix implements Cloneable {
         }
         return matrices;
     }
-
+    /**
+     * 矩阵分割为一个个列向量
+     * @return 矩阵数组
+     */
+    public List<INDArray> divideIndarrayColArrayList(){
+        List<INDArray> matrices = new ArrayList();
+        for (int i=0; i<matrix.columns();i++)
+        {
+            matrices.add(matrix.getColumns(i));
+        }
+        return matrices;
+    }
     /**
      * 矩阵分割为一个个行向量
      * @return 矩阵数组
@@ -148,6 +159,18 @@ public class Matrix implements Cloneable {
         return matrices;
     }
     /**
+     * 矩阵分割为一个个行向量
+     * @return 矩阵数组
+     */
+    public List<INDArray> divideINDArrayRowList(){
+        List<INDArray> matrices = new ArrayList();
+        for (int i=0; i<this.getRowDimension();i++)
+        {
+            matrices.add(matrix.getRow(i));
+        }
+        return matrices;
+    }
+    /**
      * 列向量数组合并为一个矩阵
      * @param matrices
      * @return
@@ -169,6 +192,56 @@ public class Matrix implements Cloneable {
             for (int i=0; i<matrices.length;i++)
                 indArrays[i] = matrices[i].getMatrix();
             matrix = Nd4j.vstack(indArrays);
+        }
+        return new Matrix(matrix);
+    }
+    /**
+     * 列向量数组合并为一个矩阵
+     * @param matrices
+     * @return
+     */
+    public static Matrix merge(INDArray[] matrices){
+        INDArray matrix;
+        if (matrices.length == 0)
+            return null;
+        if (matrices[0].rows()>1)
+        {
+//            INDArray[] indArrays = new INDArray[matrices.length];
+//            for (int i=0; i<matrices.length;i++)
+//                indArrays[i] = matrices[i];
+            matrix = Nd4j.hstack(matrices);
+        }
+        else
+        {
+//            INDArray[] indArrays = new INDArray[matrices.length];
+//            for (int i=0; i<matrices.length;i++)
+//                indArrays[i] = matrices[i];
+            matrix = Nd4j.vstack(matrices);
+        }
+        return new Matrix(matrix);
+    }
+    /**
+     * 列向量数组合并为一个矩阵
+     * @param matrices
+     * @return
+     */
+    public static Matrix merge(List<INDArray> matrices){
+        INDArray matrix;
+        if (matrices.size() == 0)
+            return null;
+        if (matrices.get(0).rows()>1)
+        {
+//            INDArray[] indArrays = new INDArray[matrices.length];
+//            for (int i=0; i<matrices.length;i++)
+//                indArrays[i] = matrices[i];
+            matrix = Nd4j.hstack(matrices);
+        }
+        else
+        {
+//            INDArray[] indArrays = new INDArray[matrices.length];
+//            for (int i=0; i<matrices.length;i++)
+//                indArrays[i] = matrices[i];
+            matrix = Nd4j.vstack(matrices);
         }
         return new Matrix(matrix);
     }
@@ -285,7 +358,8 @@ public class Matrix implements Cloneable {
      */
     public Matrix sort(){
         double[] doubles = this.getD();
-        Matrix[] matrices = this.getV().divideCol();
+//        Matrix[] matrices = this.getV().divideCol();
+        Matrix matrix = this.getV();
 //        System.out.println(Matrix.merge(matrices));
 //        for (int i=0;i<doubles.length;i++)
 //            System.out.println(doubles[i]);
@@ -293,7 +367,9 @@ public class Matrix implements Cloneable {
         DV[] dvs = new DV[doubles.length];
         for (int i=0; i<doubles.length;i++)
         {
-            dvs[i] = new DV(matrices[i],doubles[i]);
+            dvs[i] = new DV(
+                new Matrix(matrix.getMatrix().getColumn(i).dup()),
+                doubles[i]);
         }
         Arrays.sort(dvs, new DVComparator());
 
@@ -320,19 +396,19 @@ public class Matrix implements Cloneable {
 
     public Matrix removeRow(int index){
 //        int k = 0;
-        List<Matrix> matrices = this.divideRowArrayList();
+        List<INDArray> matrices = this.divideINDArrayRowList();
 
         matrices.remove(index);
-        Matrix matrix = Matrix.mergeArrayList(matrices);
+        Matrix matrix = Matrix.merge(matrices);
 
         return matrix;
     }
 
     public Matrix removeCol(int index){
-        List<Matrix> matrices = this.divideColArrayList();
+        List<INDArray> matrices = this.divideIndarrayColArrayList();
 
         matrices.remove(index);
-        Matrix matrix = Matrix.mergeArrayList(matrices);
+        Matrix matrix = Matrix.merge(matrices);
 
         return matrix;
     }
@@ -427,12 +503,12 @@ public class Matrix implements Cloneable {
         return f;
     }
 
-    public boolean checkMatrix(){
-        return isZeroMatrix(this.divideCol()[0])||
-                isZeroMatrix(this.divideCol()[this.getColumnDimension()-1])||
-                isZeroMatrix(this.divideRow()[0])||
-                isZeroMatrix(this.divideRow()[this.getRowDimension()-1]);
-    }
+//    public boolean checkMatrix(){
+//        return isZeroMatrix(this.getMatrix().getColumn(0))||
+//                isZeroMatrix(this.divideCol()[this.getColumnDimension()-1])||
+//                isZeroMatrix(this.divideRow()[0])||
+//                isZeroMatrix(this.divideRow()[this.getRowDimension()-1]);
+//    }
 
     @Override
     public String toString() {

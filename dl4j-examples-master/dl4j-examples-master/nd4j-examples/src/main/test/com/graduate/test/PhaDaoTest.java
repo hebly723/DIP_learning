@@ -1,6 +1,6 @@
 package com.graduate.test;
 
-import com.graduate.dao.HashcvaDao;
+import com.graduate.dao.HashcvaMapper;
 import com.graduate.dao.HashphaDao;
 import com.graduate.dao.ImageDao;
 import com.graduate.entity.HashPack;
@@ -23,7 +23,7 @@ public class PhaDaoTest extends BaseTest {
     @Autowired
     private ImageDao imageDao;
     @Autowired
-    private HashcvaDao hashcvaDao;
+    private HashcvaMapper hashcvaDao;
     @Autowired
     private HashphaDao hashphaDao;
     @Test

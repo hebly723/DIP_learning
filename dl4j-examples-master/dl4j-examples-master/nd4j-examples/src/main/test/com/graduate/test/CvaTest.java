@@ -9,6 +9,8 @@ import org.junit.Test;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 
+import java.util.Arrays;
+
 import static org.opencv.imgcodecs.Imgcodecs.imread;
 
 /**
@@ -18,11 +20,11 @@ public class CvaTest {
     static{ System.loadLibrary(Core.NATIVE_LIBRARY_NAME); }
     String str;
     Mat mat;
-    String ans;
+    byte[] ans;
     Algorithm algorithm;
     @Before
     public void init(){
-        algorithm = new CVA();
+        algorithm = new PHA();
     }
 
 //    @Test
@@ -57,35 +59,32 @@ public class CvaTest {
         System.out.println("5.1.10.tiff");
         str = "src/main/ImageSource/misc/5.1.10.tiff";
         mat = imread(str);
-        ans = algorithm.hashString(mat).toString();
-        System.out.println(ans);
+        ans = algorithm.hashString(mat);
+        System.out.println(Arrays.toString(ans));
     }
     @Test
     public void getCva5111()
     {
         System.out.println("5.1.11.tiff");
         str = "src/main/ImageSource/misc/5.1.11.tiff";
-        mat = imread(str);
-        ans = algorithm.hashString(mat).toString();
-        System.out.println(ans);
+        mat = imread(str);ans = algorithm.hashString(mat);
+        System.out.println(Arrays.toString(ans));
     }
     @Test
     public void getCva5112()
     {
         System.out.println("5.1.12.tiff");
         str = "src/main/ImageSource/misc/5.1.12.tiff";
-        mat = imread(str);
-        ans = algorithm.hashString(mat).toString();
-        System.out.println(ans);
+        mat = imread(str);ans = algorithm.hashString(mat);
+        System.out.println(Arrays.toString(ans));
     }
     @Test
     public void getCva5114()
     {
         System.out.println("5.1.14.tiff");
         str = "src/main/ImageSource/misc/5.1.14.tiff";
-        mat = imread(str);
-        ans = algorithm.hashString(mat).toString();
-        System.out.println(ans);
+        mat = imread(str);ans = algorithm.hashString(mat);
+        System.out.println(Arrays.toString(ans));
     }
 //    @Test
 //    public void getCvaPeople4()

@@ -3,7 +3,7 @@ package com.graduate.test.dataTest;
 import com.graduate.algorithm.Algorithm;
 import com.graduate.algorithm.impl.CVA;
 import com.graduate.algorithm.impl.PHA;
-import com.graduate.dao.HashcvaDao;
+import com.graduate.dao.HashcvaMapper;
 import com.graduate.dao.HashphaDao;
 import com.graduate.dao.ImageDao;
 import com.graduate.entity.*;
@@ -30,7 +30,7 @@ public class JpegTest extends BaseTest{
     @Autowired
     private HashphaDao hashphaDao;
     @Autowired
-    private HashcvaDao hashcvaDao;
+    private HashcvaMapper hashcvaDao;
     @Autowired
     private ImageDao imageDao;
     private final String path = "src/main/ImageSource/1.jpg";

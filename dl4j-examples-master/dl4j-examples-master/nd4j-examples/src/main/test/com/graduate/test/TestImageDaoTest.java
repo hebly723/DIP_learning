@@ -31,7 +31,7 @@ public class TestImageDaoTest extends BaseTest {
   @Autowired
   private TestImageDao testImageDao;
   @Autowired
-  private HashcvaDao hashcvaDao;
+  private HashcvaMapper hashcvaDao;
   private final String path = "/home/hebly723/test/";
   private final String prefix = "/home/hebly723/下载/aerials";
   private final int begin = 1;

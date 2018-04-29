@@ -47,8 +47,8 @@ public class LLETest {
     public void testGetAnswer(){
         System.out.println(lleEmbed.getAnswer(matrix));
     }
-    @Test
-    public void testDistance(){
-        System.out.println(lleEmbed.distance(matrix.divideCol()[0], matrix.divideCol()[1]));
-    }
+//    @Test
+//    public void testDistance(){
+//        System.out.println(lleEmbed.distance(matrix.divideCol()[0], matrix.divideCol()[1]));
+//    }
 }

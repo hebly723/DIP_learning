@@ -31,7 +31,7 @@ public class CvaDaoTest extends BaseTest {
   @Autowired
   private ImageDao imageDao;
   @Autowired
-  private HashcvaDao hashcvaDao;
+  private HashcvaMapper hashcvaDao;
   @Autowired
   private HashphaDao hashphaDao;
 

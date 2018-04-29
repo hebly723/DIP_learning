@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-public interface HashcvaDao {
+public interface HashcvaMapper {
     int countByExample(HashcvaExample example);
 
     int deleteByExample(HashcvaExample example);

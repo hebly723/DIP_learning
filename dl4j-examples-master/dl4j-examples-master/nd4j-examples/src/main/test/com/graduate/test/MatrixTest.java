@@ -69,21 +69,21 @@ public class MatrixTest {
     /**
      * 测试按列分割列向量
      */
-    @Test
-    public void testDivideCol(){
-        Matrix[] matrices = matrix.divideCol();
-        for (int i=0; i< matrices.length; i++)
-        System.out.println(matrices[i]);
-    }
+//    @Test
+//    public void testDivideCol(){
+//        Matrix[] matrices = matrix.divideCol();
+//        for (int i=0; i< matrices.length; i++)
+//        System.out.println(matrices[i]);
+//    }
     /**
      * 测试按行分割行向量
      */
-    @Test
-    public void testDivideRow(){
-        Matrix[] matrices = matrix.divideRow();
-        for (int i=0; i< matrices.length; i++)
-            System.out.println(matrices[i]);
-    }
+//    @Test
+//    public void testDivideRow(){
+//        Matrix[] matrices = matrix.divideRow();
+//        for (int i=0; i< matrices.length; i++)
+//            System.out.println(matrices[i]);
+//    }
 
     @Test
     public void testMulti(){
@@ -101,13 +101,13 @@ public class MatrixTest {
         System.out.println(matrix1+"\n"+matrix2);
         System.out.println(matrix1.multi(matrix2));
     }
-    @Test
-    public void testMerge(){
-        Matrix[] matrices = matrix.divideRow();
-        for (int i=0; i< matrices.length; i++)
-            System.out.println(matrices[i]);
-        System.out.println(Matrix.merge(matrices));
-    }
+//    @Test
+//    public void testMerge(){
+//        Matrix[] matrices = matrix.divideRow();
+//        for (int i=0; i< matrices.length; i++)
+//            System.out.println(matrices[i]);
+//        System.out.println(Matrix.merge(matrices));
+//    }
     @Test
     public void testRemoveRow(){
         System.out.println(matrix.removeRow(0));

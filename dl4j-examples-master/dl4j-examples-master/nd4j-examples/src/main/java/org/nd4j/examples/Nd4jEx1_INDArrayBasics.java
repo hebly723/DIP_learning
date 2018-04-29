@@ -72,6 +72,7 @@ public class Nd4jEx1_INDArrayBasics {
         INDArray myArray3 = myArray2.mul(2.0);  //Multiply each entry by 2.0
         System.out.println("\nNew INDArray, after multiplying each entry by 2.0:");
         System.out.println(myArray3);
+
     }
 
 }

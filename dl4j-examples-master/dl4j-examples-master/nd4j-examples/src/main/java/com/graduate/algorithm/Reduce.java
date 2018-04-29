@@ -74,11 +74,12 @@ public class Reduce {
 //        System.out.println(matrix.divideCol()[63]);
         for (int i = 0; i<matrix.getColumnDimension(); i++)
         {
-            ws[i] = Matrix.isZeroMatrix(matrix.divideCol()[i]);
+            ws[i] = Matrix.isZeroMatrix(new Matrix(matrix.getMatrix().getColumn(i).dup()));
         }
         for (int j = 0; j<matrix.getRowDimension(); j++)
         {
-            hs[j] = Matrix.isZeroMatrix(matrix.divideRow()[j]);
+            hs[j] = Matrix.isZeroMatrix(new Matrix(
+                matrix.getMatrix().getRow(j)));
         }
 
         int bw, bh, fw, fh;

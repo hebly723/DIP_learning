@@ -20,15 +20,17 @@ public class LLEArg {
     public LLEArg(Matrix matrix){
         dimention = 2;
         neighborhoodNumber = 2;
-        Matrix[] matrices = matrix.divideCol();
+        int col = matrix.getColumnDimension();
+//        Matrix[] matrices = matrix.divideCol();
         Matrix[] answer;
-        double[][] array = new double[matrices.length][matrices.length];
-        for (int i=0; i<matrices.length; i++)
+        INDArray indArray = matrix.getMatrix();
+        double[][] array = new double[col][col];
+        for (int i=0; i<col; i++)
         {
             array[i][i] = -1;
-            for (int j=i+1;j<matrices.length;j++)
+            for (int j=i+1;j<col;j++)
             {
-                double m = distance(matrices[i], matrices[j]);
+                double m = indArray.getColumn(i).distance2(indArray.getColumn(j));
                 array[i][j] = m;
                 array[j][i] = m;
             }
@@ -38,7 +40,6 @@ public class LLEArg {
     /**
      * 求与给定列向量相邻的列向量
      * @param matrix
-     * @param i 该列向量在列向量数组中的下标
      * @return
      */
     public Matrix[] neighborhood( Matrix matrix, int n){
@@ -55,7 +56,11 @@ public class LLEArg {
         Matrix[] answer = new Matrix[neighborhoodNumber];
         for (int i = 0;i < neighborhoodNumber; i++)
         {
-            answer[i] = matrix.divideCol()[(int)Math.ceil(kdTreeNodes[i+1].array[0])%matrix.getColumnDimension()];
+            answer[i] = new Matrix(matrix.
+                getMatrix().
+                getColumn((int)Math.
+                    ceil(kdTreeNodes[i+1].array[0])%matrix.
+                getColumnDimension()).dup());
         }
 //        answer = new Matrix[neighborhoodNumber];
 //        int begin = (i-neighborhoodNumber+matrices.length)%matrices.length;
@@ -88,11 +93,12 @@ public class LLEArg {
 //        System.out.println("matrixZ\n"+matrix);
         Matrix[] neighbor = neighborhood(matrix, index).clone();
 
-        Matrix[] answer = new Matrix[neighbor.length];
+        INDArray[] answer = new INDArray[neighbor.length];
 
         for (int i=0; i<neighbor.length;i++)
         {
-            answer[i] = matrix.divideCol()[index].plus(neighbor[i].multi(-1));
+            answer[i] = matrix.getMatrix().getColumn(index).dup().
+                addi(neighbor[i].multi(-1).getMatrix());
             neighbor[i].multi(-1);
         }
 
@@ -108,7 +114,7 @@ public class LLEArg {
      * @param matrix
      * @param index
      */
-    public Matrix getWI(Matrix matrix, int index){
+    public INDArray getWI(Matrix matrix, int index){
         Matrix z = getZ(matrix, index);
         Matrix wU = (z.getInverse().multi(Matrix.initCol(neighborhoodNumber)));
 
@@ -121,7 +127,7 @@ public class LLEArg {
             k = zero;
 
 //        System.out.println("getWI"+wD);
-        return wU.multi(1/k);
+        return wU.multi(1/k).getMatrix();
     }
 
     /**
@@ -129,8 +135,9 @@ public class LLEArg {
      * @param matrix
      */
     public Matrix getW(Matrix matrix){
-        Matrix[] matrix1 = new Matrix[matrix.getColumnDimension()];
-        for (int i=0; i<matrix.getColumnDimension();i++)
+        int col = matrix.getColumnDimension();
+        INDArray[] matrix1 = new INDArray[col];
+        for (int i=0; i<col;i++)
         {
             matrix1[i] = getWI(matrix, i);
         }
@@ -167,7 +174,8 @@ public class LLEArg {
 //        System.out.println(3);
 //        System.out.println(matrix3);
 
-        List<Matrix> indArrayList = matrix3.divideColArrayList();
+        List<INDArray> indArrayList = matrix3.
+            divideIndarrayColArrayList();
         for (int j = indArrayList.size()-1; j>=dimention; j--)
         {
             indArrayList.remove(j);
@@ -178,7 +186,8 @@ public class LLEArg {
 //        System.out.println(4);
 
 //        System.out.println("getAnswer");
-        Matrix matrix2 = Matrix.mergeArrayList(indArrayList).reverse();
+
+        Matrix matrix2 = Matrix.merge((indArrayList)).reverse();
         return matrix2;
     }
 
