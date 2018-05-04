@@ -24,16 +24,32 @@ public class Quantization {
 
     private byte[] getByteValue(double[] doubles) {
         double u = 0;
-        for (int i=0; i<doubles.length;i++)
+        int dl = doubles.length;
+        for (int i=0; i<dl;i++)
         {
             u += doubles[i];
         }
-        u /= doubles.length;
-        byte[] booleans = new byte[doubles.length];
+        u /= dl;
+        byte[] booleans = new byte[8];
 //        System.out.println("u="+u);
-        for (int i=0; i<doubles.length;i++)
+        for (int i=0; i<8;i++)
         {
-            booleans[i] = QByte(doubles[i], u);
+            int i1 = QByte(doubles[i*8+1], u);
+            int i2 = QByte(doubles[i*8+2], u);
+            int i3 = QByte(doubles[i*8+3], u);
+            int i4 = QByte(doubles[i*8+4], u);
+            int i5 = QByte(doubles[i*8+5], u);
+            int i7 = QByte(doubles[i*8+7], u);
+            int i6 = QByte(doubles[i*8+6], u);
+            int i0 = QByte(doubles[i*8+0], u);
+            booleans[i] = (byte)(i0+
+                2*i1+
+                4*i2+
+                8*i3+
+                16*i4+
+                32*i5+
+                64*i6+
+                128*i7);
         }
         return booleans;
     }

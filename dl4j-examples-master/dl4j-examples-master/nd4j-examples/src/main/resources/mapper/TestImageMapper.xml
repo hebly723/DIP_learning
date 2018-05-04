@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.graduate.dao.TestImageDao" >
+<mapper namespace="com.graduate.dao.TestImageMapper" >
   <resultMap id="BaseResultMap" type="com.graduate.entity.TestImage" >
     <result column="id" property="id" jdbcType="INTEGER" />
-    <result column="detail" property="detail" jdbcType="VARCHAR" />
     <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="jpeg" property="jpeg" jdbcType="INTEGER" />
+    <result column="angle" property="angle" jdbcType="INTEGER" />
+    <result column="salt" property="salt" jdbcType="INTEGER" />
+    <result column="set" property="set" jdbcType="BIT" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.graduate.entity.TestImageWithBLOBs" extends="BaseResultMap" >
+    <result column="cva" property="cva" jdbcType="BINARY" />
+    <result column="pha" property="pha" jdbcType="BINARY" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -65,8 +72,27 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, detail, location
+    id, location, jpeg, angle, salt, set
   </sql>
+  <sql id="Blob_Column_List" >
+    cva, pha
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.graduate.entity.TestImageExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from TEST_IMAGE
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.graduate.entity.TestImageExample" >
     select
     <if test="distinct" >
@@ -87,34 +113,66 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.graduate.entity.TestImage" >
-    insert into TEST_IMAGE (id, detail, location
-      )
-    values (#{id,jdbcType=INTEGER}, #{detail,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}
-      )
+  <insert id="insert" parameterType="com.graduate.entity.TestImageWithBLOBs" >
+    insert into TEST_IMAGE (id, location, jpeg, 
+      angle, salt, set, cva, 
+      pha)
+    values (#{id,jdbcType=INTEGER}, #{location,jdbcType=VARCHAR}, #{jpeg,jdbcType=INTEGER}, 
+      #{angle,jdbcType=INTEGER}, #{salt,jdbcType=INTEGER}, #{set,jdbcType=BIT}, #{cva,jdbcType=BINARY}, 
+      #{pha,jdbcType=BINARY})
   </insert>
-  <insert id="insertSelective" parameterType="com.graduate.entity.TestImage" >
+  <insert id="insertSelective" parameterType="com.graduate.entity.TestImageWithBLOBs" >
     insert into TEST_IMAGE
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="detail != null" >
-        detail,
-      </if>
       <if test="location != null" >
         location,
+      </if>
+      <if test="jpeg != null" >
+        jpeg,
+      </if>
+      <if test="angle != null" >
+        angle,
+      </if>
+      <if test="salt != null" >
+        salt,
+      </if>
+      <if test="set != null" >
+        set,
+      </if>
+      <if test="cva != null" >
+        cva,
+      </if>
+      <if test="pha != null" >
+        pha,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="detail != null" >
-        #{detail,jdbcType=VARCHAR},
-      </if>
       <if test="location != null" >
         #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="jpeg != null" >
+        #{jpeg,jdbcType=INTEGER},
+      </if>
+      <if test="angle != null" >
+        #{angle,jdbcType=INTEGER},
+      </if>
+      <if test="salt != null" >
+        #{salt,jdbcType=INTEGER},
+      </if>
+      <if test="set != null" >
+        #{set,jdbcType=BIT},
+      </if>
+      <if test="cva != null" >
+        #{cva,jdbcType=BINARY},
+      </if>
+      <if test="pha != null" >
+        #{pha,jdbcType=BINARY},
       </if>
     </trim>
   </insert>
@@ -130,13 +188,42 @@
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.detail != null" >
-        detail = #{record.detail,jdbcType=VARCHAR},
-      </if>
       <if test="record.location != null" >
         location = #{record.location,jdbcType=VARCHAR},
       </if>
+      <if test="record.jpeg != null" >
+        jpeg = #{record.jpeg,jdbcType=INTEGER},
+      </if>
+      <if test="record.angle != null" >
+        angle = #{record.angle,jdbcType=INTEGER},
+      </if>
+      <if test="record.salt != null" >
+        salt = #{record.salt,jdbcType=INTEGER},
+      </if>
+      <if test="record.set != null" >
+        set = #{record.set,jdbcType=BIT},
+      </if>
+      <if test="record.cva != null" >
+        cva = #{record.cva,jdbcType=BINARY},
+      </if>
+      <if test="record.pha != null" >
+        pha = #{record.pha,jdbcType=BINARY},
+      </if>
     </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update TEST_IMAGE
+    set id = #{record.id,jdbcType=INTEGER},
+      location = #{record.location,jdbcType=VARCHAR},
+      jpeg = #{record.jpeg,jdbcType=INTEGER},
+      angle = #{record.angle,jdbcType=INTEGER},
+      salt = #{record.salt,jdbcType=INTEGER},
+      set = #{record.set,jdbcType=BIT},
+      cva = #{record.cva,jdbcType=BINARY},
+      pha = #{record.pha,jdbcType=BINARY}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -144,8 +231,11 @@
   <update id="updateByExample" parameterType="map" >
     update TEST_IMAGE
     set id = #{record.id,jdbcType=INTEGER},
-      detail = #{record.detail,jdbcType=VARCHAR},
-      location = #{record.location,jdbcType=VARCHAR}
+      location = #{record.location,jdbcType=VARCHAR},
+      jpeg = #{record.jpeg,jdbcType=INTEGER},
+      angle = #{record.angle,jdbcType=INTEGER},
+      salt = #{record.salt,jdbcType=INTEGER},
+      set = #{record.set,jdbcType=BIT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>

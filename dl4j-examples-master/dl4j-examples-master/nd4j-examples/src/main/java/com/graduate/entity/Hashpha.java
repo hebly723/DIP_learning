@@ -3,7 +3,7 @@ package com.graduate.entity;
 public class Hashpha {
     private Integer id;
 
-    private String hash;
+    private byte[] hash;
 
     public Integer getId() {
         return id;
@@ -13,19 +13,11 @@ public class Hashpha {
         this.id = id;
     }
 
-    public String getHash() {
+    public byte[] getHash() {
         return hash;
     }
 
-    public void setHash(String hash) {
-        this.hash = hash == null ? null : hash.trim();
-    }
-
-    @Override
-    public String toString() {
-        return "Hashpha{" +
-                "id=" + id +
-                ", hash='" + hash + '\'' +
-                '}';
+    public void setHash(byte[] hash) {
+        this.hash = hash;
     }
 }

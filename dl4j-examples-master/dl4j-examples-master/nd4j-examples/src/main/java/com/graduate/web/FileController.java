@@ -1,9 +1,10 @@
 package com.graduate.web;
 
 import com.graduate.algorithm.Algorithm;
+import com.graduate.algorithm.impl.CVA;
 import com.graduate.algorithm.impl.PHA;
 import com.graduate.dao.HashcvaMapper;
-import com.graduate.dao.HashphaDao;
+import com.graduate.dao.HashphaMapper;
 import com.graduate.dao.ImageDao;
 import com.graduate.entity.*;
 import org.opencv.core.Core;
@@ -28,7 +29,7 @@ import static org.opencv.imgcodecs.Imgcodecs.imread;
 @Controller
 public class FileController {
     @Autowired
-    HashphaDao haphaDao;
+    HashphaMapper haphaDao;
     @Autowired
     ImageDao imageDao;
     @Autowired
@@ -65,15 +66,21 @@ public class FileController {
     public String answer(Model model, HttpServletRequest request) throws IOException {
         Mat mat = imread((String)request.getSession().getAttribute("image"));
         File file = new File((String)request.getSession().getAttribute("image"));
-        HashPack hashPack = new HashPack();
-        Algorithm algorithm = new PHA();
-        hashPack.setHashPha(algorithm.hashString(mat).toString());
+//        HashPack hashPack = new HashPack();
+        Algorithm algorithm = new CVA();
+//        hashPack.setHashPha(algorithm.hashString(mat));
 //        algorithm = new CVA();
 //        hashPack.setHashCva(algorithm.hashString(mat));
 
-        List<Image> images = haphaDao.selectHash(hashPack);
+//        Hashpha hashpha = new Hashpha();
+//        hashpha.setHash();
+
+//        HashcvaExample hashphaExample = new HashcvaExample();
+//        hashcvaDao.selectByExample();
+//        List<Image> images = hashcvaDao.
+//            selectByHash(algorithm.hashString(mat));
         model.addAttribute("image", (String)request.getSession().getAttribute("image"));
-        model.addAttribute("list", images);
+//        model.addAttribute("list", images);
 //        file.delete();
         return "answer";
     }

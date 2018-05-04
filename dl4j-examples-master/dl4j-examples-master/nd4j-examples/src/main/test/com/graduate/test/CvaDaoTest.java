@@ -33,7 +33,7 @@ public class CvaDaoTest extends BaseTest {
   @Autowired
   private HashcvaMapper hashcvaDao;
   @Autowired
-  private HashphaDao hashphaDao;
+  private HashphaMapper hashphaDao;
 
   @Test
   public void testDatabase(){
@@ -49,7 +49,8 @@ public class CvaDaoTest extends BaseTest {
     hashcvaDao.insert(hashcva);
     Hashpha hashpha = new Hashpha();
     hashpha.setId(0);
-    hashpha.setHash(0+"");
+//    byte[] bytes1 =
+    hashpha.setHash(bytes);
     hashphaDao.insert(hashpha);
   }
 

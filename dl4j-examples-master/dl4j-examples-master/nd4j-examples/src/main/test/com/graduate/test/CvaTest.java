@@ -60,6 +60,7 @@ public class CvaTest {
         str = "src/main/ImageSource/misc/5.1.10.tiff";
         mat = imread(str);
         ans = algorithm.hashString(mat);
+        System.out.println(ans.length);
         System.out.println(Arrays.toString(ans));
     }
     @Test

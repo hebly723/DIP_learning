@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.graduate.dao.HashphaDao" >
+<mapper namespace="com.graduate.dao.HashphaMapper" >
   <resultMap id="BaseResultMap" type="com.graduate.entity.Hashpha" >
-    <result column="id" property="id" jdbcType="INTEGER" />
-    <result column="hash" property="hash" jdbcType="VARCHAR" />
+    <id column="id" property="id" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.graduate.entity.Hashpha" extends="BaseResultMap" >
+    <result column="hash" property="hash" jdbcType="BINARY" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -64,8 +66,27 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, hash
+    id
   </sql>
+  <sql id="Blob_Column_List" >
+    hash
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.graduate.entity.HashphaExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from HashPHA
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.graduate.entity.HashphaExample" >
     select
     <if test="distinct" >
@@ -80,6 +101,18 @@
       order by ${orderByClause}
     </if>
   </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from HashPHA
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from HashPHA
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
   <delete id="deleteByExample" parameterType="com.graduate.entity.HashphaExample" >
     delete from HashPHA
     <if test="_parameter != null" >
@@ -88,7 +121,7 @@
   </delete>
   <insert id="insert" parameterType="com.graduate.entity.Hashpha" >
     insert into HashPHA (id, hash)
-    values (#{id,jdbcType=INTEGER}, #{hash,jdbcType=VARCHAR})
+    values (#{id,jdbcType=INTEGER}, #{hash,jdbcType=BINARY})
   </insert>
   <insert id="insertSelective" parameterType="com.graduate.entity.Hashpha" >
     insert into HashPHA
@@ -105,7 +138,7 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="hash != null" >
-        #{hash,jdbcType=VARCHAR},
+        #{hash,jdbcType=BINARY},
       </if>
     </trim>
   </insert>
@@ -122,41 +155,40 @@
         id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.hash != null" >
-        hash = #{record.hash,jdbcType=VARCHAR},
+        hash = #{record.hash,jdbcType=BINARY},
       </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map" >
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
     update HashPHA
     set id = #{record.id,jdbcType=INTEGER},
-      hash = #{record.hash,jdbcType=VARCHAR}
+      hash = #{record.hash,jdbcType=BINARY}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <!--以下为自己添加的查询语句-->
-  <select id="selectDump" resultType="com.graduate.entity.Image" >
-    Select DISTINCT Image.id, Image.detail, Image.location
-    From HashCVA, Image, HashPHA
-    Where Image.id = HashCVA.id and Image.id = HashPHA.id
-    and HashCVA.hash In (Select hash From HashCVA Group By hash Having Count(*)>1)
-     and HashPHA.hash In (Select hash From HashPHA Group By hash Having Count(*)>1)
-      order by Image.id;
-  </select>
-
-  <select id="selectHash" resultType="com.graduate.entity.Image"
-          parameterType="com.graduate.entity.HashPack">
-    select DISTINCT Image.id, Image.detail, Image.location from Image, HashCVA, HashPHA WHERE
-    Image.id = HashCVA.id and Image.id = HashPHA.id
-    <if test="hashCva!=null">
-      and HashCVA.hash = #{hashCva,jdbcType=INTEGER}
+  <update id="updateByExample" parameterType="map" >
+    update HashPHA
+    set id = #{record.id,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
     </if>
-    <if test="hashPha!=null">
-      and HashPHA.hash = #{hashPha,jdbcType=INTEGER}
-    </if>
-  </select>
-
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.graduate.entity.Hashpha" >
+    update HashPHA
+    <set >
+      <if test="hash != null" >
+        hash = #{hash,jdbcType=BINARY},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.graduate.entity.Hashpha" >
+    update HashPHA
+    set hash = #{hash,jdbcType=BINARY}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>

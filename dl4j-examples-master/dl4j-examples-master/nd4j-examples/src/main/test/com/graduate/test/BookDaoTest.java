@@ -3,7 +3,7 @@ package com.graduate.test;
 import com.graduate.algorithm.Algorithm;
 import com.graduate.algorithm.impl.PHA;
 import com.graduate.dao.BookDao;
-import com.graduate.dao.HashphaDao;
+import com.graduate.dao.HashphaMapper;
 import com.graduate.dao.ImageDao;
 import com.graduate.dao.UserDao;
 import com.graduate.entity.*;
@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.graduate.tool.ImageViewer;
 import org.junit.Test;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -33,7 +32,7 @@ public class BookDaoTest extends BaseTest {
   @Autowired
   private ImageDao imageDao;
   @Autowired
-  private HashphaDao hashphaDao;
+  private HashphaMapper hashphaDao;
 
   @Test
   public void insertImage() throws InterruptedException {
@@ -81,7 +80,7 @@ public class BookDaoTest extends BaseTest {
         hashpha.setId(imageDao.selectByExample(imageExample).get(0).getId());
         Algorithm algorithm = new PHA();
         Mat mat = imread(location+"/"+ eng[i-1] + "/" + j + ".jpg");
-        hashpha.setHash(algorithm.hashString(mat).toString());
+        hashpha.setHash(algorithm.hashString(mat));
         hashphaDao.insertSelective(hashpha);
       }
     }
@@ -140,7 +139,7 @@ public class BookDaoTest extends BaseTest {
               image.getDetail().
                       substring(str.length(),
                               image.getDetail().length())+".jpg");
-      hashpha.setHash(algorithm.hashString(mat).toString());
+      hashpha.setHash(algorithm.hashString(mat));
       hashphaDao.insertSelective(hashpha);
       System.out.println(image);
     }

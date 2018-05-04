@@ -6,6 +6,7 @@ import org.opencv.core.Mat;
 import org.opencv.core.Size;
 
 import static com.graduate.tool.Gray.rgbToGray;
+import static java.lang.Math.pow;
 import static org.opencv.core.CvType.CV_32S;
 import static org.opencv.imgproc.Imgproc.INTER_CUBIC;
 import static org.opencv.imgproc.Imgproc.resize;
@@ -57,13 +58,19 @@ public class PHA implements Algorithm {
          * 第五步，建立8×8数组，遍历图像所有区域
          * 灰度值在平均值以上的令其在数组中的相应位置取值等于1,在平均值以下的令其等于0
          */
-        byte[] comps= new byte[64];
-        for (int i = 0; i < comps.length; i++) {
-            if(pixels[i] >= avgPixel) {
-                comps[i]= 1;
-            }else {
-                comps[i]= 0;
+        byte[] comps= new byte[8];
+        for (int i = 0; i < 8; i++) {
+            int sum = 0;
+            for (int j=0; j<8; j++) {
+                int mid = 0;
+                if (pixels[i*8+j] >= avgPixel) {
+                    mid = 1;
+                } else {
+                    mid = 0;
+                }
+                sum += pow( 2, j);
             }
+            comps[i] = (byte)sum;
         }
         /**
          * 最后，将获得的数组转为十六进制字符串

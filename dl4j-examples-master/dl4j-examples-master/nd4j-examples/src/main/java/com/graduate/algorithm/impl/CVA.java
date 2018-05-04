@@ -26,11 +26,13 @@ public class CVA implements Algorithm {
           * 先进行规格化，化成512×512的矩阵
           */
 
-        resize(srcImage, originCub, dSize, 0, 0, INTER_CUBIC);
+        resize(srcImage, originCub, dSize,
+            0, 0, INTER_CUBIC);
         /**
           * 通过高斯滤波
           */
-        Mat blurMat = blur.GaussianBlurD(originCub, 3, 3, 16, 16);
+        Mat blurMat = blur.GaussianBlurD(originCub,
+            3, 3, 16, 16);
         /**
           * 提取颜色向量角，生成矩阵
           */
@@ -51,7 +53,10 @@ public class CVA implements Algorithm {
                   * 作DCT变换，取前几个作为特征向量，生成特征矩阵
                   */
                 DCT_Trans dct_trans = new DCT_Trans(64);
-                dctlMat[i*8+j] = dct_trans.CVADCTProgressD(array, i * 64, j * 64, 64);
+                dctlMat[i*8+j] =
+                    dct_trans.
+                        CVADCTProgressD(array,
+                            i * 64, j * 64, 64);
 //                dctlMat.add(doubles);
             }
         }
@@ -76,7 +81,8 @@ public class CVA implements Algorithm {
                 double k = urList[j][1];
                 if (k == 0)
                     k = zero;
-                double d = (dctMat.get(j, i) - urList[j][0]) / k;
+                double d = (dctMat.get(j, i) -
+                    urList[j][0]) / k;
                 sList[i][j]=d;
 //                System.out.print(d + "\t");
             }
@@ -99,15 +105,16 @@ public class CVA implements Algorithm {
         lleArg.setNeighborhoodNumber(15);
 //        System.out.println(matrix);
         Matrix lleAnswer = lleArg.getAnswer(matrix);
-//
-        Quantization quantization = new Quantization(lleAnswer);
+
+        Quantization quantization =
+            new Quantization(lleAnswer);
 //
 //        System.out.println(5);
         byte[] comps = quantization.getByteHash();
 //        System.out.println(Arrays.toString(comps));
 //        System.out.println("length"+comps.length);
 //        StringBuffer hashCode = new StringBuffer();
-
+//
 //        System.out.println(comps.length);
 //        for (int i = 0; i < comps.length; i += 4) {
 //            int result = comps[i] * (int) Math.pow(2, 3) +

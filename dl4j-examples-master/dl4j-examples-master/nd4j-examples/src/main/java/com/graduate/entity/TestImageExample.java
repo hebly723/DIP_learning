@@ -164,76 +164,6 @@ public class TestImageExample {
             return (Criteria) this;
         }
 
-        public Criteria andDetailIsNull() {
-            addCriterion("detail is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andDetailIsNotNull() {
-            addCriterion("detail is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andDetailEqualTo(String value) {
-            addCriterion("detail =", value, "detail");
-            return (Criteria) this;
-        }
-
-        public Criteria andDetailNotEqualTo(String value) {
-            addCriterion("detail <>", value, "detail");
-            return (Criteria) this;
-        }
-
-        public Criteria andDetailGreaterThan(String value) {
-            addCriterion("detail >", value, "detail");
-            return (Criteria) this;
-        }
-
-        public Criteria andDetailGreaterThanOrEqualTo(String value) {
-            addCriterion("detail >=", value, "detail");
-            return (Criteria) this;
-        }
-
-        public Criteria andDetailLessThan(String value) {
-            addCriterion("detail <", value, "detail");
-            return (Criteria) this;
-        }
-
-        public Criteria andDetailLessThanOrEqualTo(String value) {
-            addCriterion("detail <=", value, "detail");
-            return (Criteria) this;
-        }
-
-        public Criteria andDetailLike(String value) {
-            addCriterion("detail like", value, "detail");
-            return (Criteria) this;
-        }
-
-        public Criteria andDetailNotLike(String value) {
-            addCriterion("detail not like", value, "detail");
-            return (Criteria) this;
-        }
-
-        public Criteria andDetailIn(List<String> values) {
-            addCriterion("detail in", values, "detail");
-            return (Criteria) this;
-        }
-
-        public Criteria andDetailNotIn(List<String> values) {
-            addCriterion("detail not in", values, "detail");
-            return (Criteria) this;
-        }
-
-        public Criteria andDetailBetween(String value1, String value2) {
-            addCriterion("detail between", value1, value2, "detail");
-            return (Criteria) this;
-        }
-
-        public Criteria andDetailNotBetween(String value1, String value2) {
-            addCriterion("detail not between", value1, value2, "detail");
-            return (Criteria) this;
-        }
-
         public Criteria andLocationIsNull() {
             addCriterion("location is null");
             return (Criteria) this;
@@ -301,6 +231,246 @@ public class TestImageExample {
 
         public Criteria andLocationNotBetween(String value1, String value2) {
             addCriterion("location not between", value1, value2, "location");
+            return (Criteria) this;
+        }
+
+        public Criteria andJpegIsNull() {
+            addCriterion("jpeg is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andJpegIsNotNull() {
+            addCriterion("jpeg is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andJpegEqualTo(Integer value) {
+            addCriterion("jpeg =", value, "jpeg");
+            return (Criteria) this;
+        }
+
+        public Criteria andJpegNotEqualTo(Integer value) {
+            addCriterion("jpeg <>", value, "jpeg");
+            return (Criteria) this;
+        }
+
+        public Criteria andJpegGreaterThan(Integer value) {
+            addCriterion("jpeg >", value, "jpeg");
+            return (Criteria) this;
+        }
+
+        public Criteria andJpegGreaterThanOrEqualTo(Integer value) {
+            addCriterion("jpeg >=", value, "jpeg");
+            return (Criteria) this;
+        }
+
+        public Criteria andJpegLessThan(Integer value) {
+            addCriterion("jpeg <", value, "jpeg");
+            return (Criteria) this;
+        }
+
+        public Criteria andJpegLessThanOrEqualTo(Integer value) {
+            addCriterion("jpeg <=", value, "jpeg");
+            return (Criteria) this;
+        }
+
+        public Criteria andJpegIn(List<Integer> values) {
+            addCriterion("jpeg in", values, "jpeg");
+            return (Criteria) this;
+        }
+
+        public Criteria andJpegNotIn(List<Integer> values) {
+            addCriterion("jpeg not in", values, "jpeg");
+            return (Criteria) this;
+        }
+
+        public Criteria andJpegBetween(Integer value1, Integer value2) {
+            addCriterion("jpeg between", value1, value2, "jpeg");
+            return (Criteria) this;
+        }
+
+        public Criteria andJpegNotBetween(Integer value1, Integer value2) {
+            addCriterion("jpeg not between", value1, value2, "jpeg");
+            return (Criteria) this;
+        }
+
+        public Criteria andAngleIsNull() {
+            addCriterion("angle is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAngleIsNotNull() {
+            addCriterion("angle is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAngleEqualTo(Integer value) {
+            addCriterion("angle =", value, "angle");
+            return (Criteria) this;
+        }
+
+        public Criteria andAngleNotEqualTo(Integer value) {
+            addCriterion("angle <>", value, "angle");
+            return (Criteria) this;
+        }
+
+        public Criteria andAngleGreaterThan(Integer value) {
+            addCriterion("angle >", value, "angle");
+            return (Criteria) this;
+        }
+
+        public Criteria andAngleGreaterThanOrEqualTo(Integer value) {
+            addCriterion("angle >=", value, "angle");
+            return (Criteria) this;
+        }
+
+        public Criteria andAngleLessThan(Integer value) {
+            addCriterion("angle <", value, "angle");
+            return (Criteria) this;
+        }
+
+        public Criteria andAngleLessThanOrEqualTo(Integer value) {
+            addCriterion("angle <=", value, "angle");
+            return (Criteria) this;
+        }
+
+        public Criteria andAngleIn(List<Integer> values) {
+            addCriterion("angle in", values, "angle");
+            return (Criteria) this;
+        }
+
+        public Criteria andAngleNotIn(List<Integer> values) {
+            addCriterion("angle not in", values, "angle");
+            return (Criteria) this;
+        }
+
+        public Criteria andAngleBetween(Integer value1, Integer value2) {
+            addCriterion("angle between", value1, value2, "angle");
+            return (Criteria) this;
+        }
+
+        public Criteria andAngleNotBetween(Integer value1, Integer value2) {
+            addCriterion("angle not between", value1, value2, "angle");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltIsNull() {
+            addCriterion("salt is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltIsNotNull() {
+            addCriterion("salt is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltEqualTo(Integer value) {
+            addCriterion("salt =", value, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltNotEqualTo(Integer value) {
+            addCriterion("salt <>", value, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltGreaterThan(Integer value) {
+            addCriterion("salt >", value, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltGreaterThanOrEqualTo(Integer value) {
+            addCriterion("salt >=", value, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltLessThan(Integer value) {
+            addCriterion("salt <", value, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltLessThanOrEqualTo(Integer value) {
+            addCriterion("salt <=", value, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltIn(List<Integer> values) {
+            addCriterion("salt in", values, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltNotIn(List<Integer> values) {
+            addCriterion("salt not in", values, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltBetween(Integer value1, Integer value2) {
+            addCriterion("salt between", value1, value2, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSaltNotBetween(Integer value1, Integer value2) {
+            addCriterion("salt not between", value1, value2, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andSetIsNull() {
+            addCriterion("set is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSetIsNotNull() {
+            addCriterion("set is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSetEqualTo(Boolean value) {
+            addCriterion("set =", value, "set");
+            return (Criteria) this;
+        }
+
+        public Criteria andSetNotEqualTo(Boolean value) {
+            addCriterion("set <>", value, "set");
+            return (Criteria) this;
+        }
+
+        public Criteria andSetGreaterThan(Boolean value) {
+            addCriterion("set >", value, "set");
+            return (Criteria) this;
+        }
+
+        public Criteria andSetGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("set >=", value, "set");
+            return (Criteria) this;
+        }
+
+        public Criteria andSetLessThan(Boolean value) {
+            addCriterion("set <", value, "set");
+            return (Criteria) this;
+        }
+
+        public Criteria andSetLessThanOrEqualTo(Boolean value) {
+            addCriterion("set <=", value, "set");
+            return (Criteria) this;
+        }
+
+        public Criteria andSetIn(List<Boolean> values) {
+            addCriterion("set in", values, "set");
+            return (Criteria) this;
+        }
+
+        public Criteria andSetNotIn(List<Boolean> values) {
+            addCriterion("set not in", values, "set");
+            return (Criteria) this;
+        }
+
+        public Criteria andSetBetween(Boolean value1, Boolean value2) {
+            addCriterion("set between", value1, value2, "set");
+            return (Criteria) this;
+        }
+
+        public Criteria andSetNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("set not between", value1, value2, "set");
             return (Criteria) this;
         }
     }

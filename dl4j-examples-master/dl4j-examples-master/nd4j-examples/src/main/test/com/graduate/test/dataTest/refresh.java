@@ -1,7 +1,7 @@
 package com.graduate.test.dataTest;
 
 import com.graduate.dao.HashcvaMapper;
-import com.graduate.dao.HashphaDao;
+import com.graduate.dao.HashphaMapper;
 import com.graduate.dao.ImageDao;
 import com.graduate.entity.*;
 import com.graduate.test.BaseTest;
@@ -22,7 +22,7 @@ import static org.opencv.imgcodecs.Imgcodecs.imread;
 public class refresh extends BaseTest{
     static{ System.loadLibrary(Core.NATIVE_LIBRARY_NAME); }
     @Autowired
-    private HashphaDao hashphaDao;
+    private HashphaMapper hashphaDao;
     @Autowired
     private HashcvaMapper hashcvaDao;
     @Autowired
@@ -119,41 +119,41 @@ public class refresh extends BaseTest{
             }catch (Exception e) {}
         }
     }
-    @Test
-    public void selectDump(){
-        List<Image> images = hashphaDao.selectDump();
-        List<HashPack> hashPacks = new ArrayList<HashPack>();
-        for (Image image : images)
-        {
-            HashPack hashPack = new HashPack();
-            HashphaExample hashphaExample = new HashphaExample();
-            hashphaExample.createCriteria().andIdEqualTo(image.getId());
-            hashPack.setHashPha(hashphaDao.selectByExample(hashphaExample).get(0).getHash());
-            HashcvaExample hashcvaExample = new HashcvaExample();
-            hashcvaExample.createCriteria().andIdEqualTo(image.getId());
-            hashPack.setHashCva(hashcvaDao.selectByExample(hashcvaExample).get(0).getHash());
+//    @Test
+//    public void selectDump(){
+//        List<Image> images = hashphaDao.selectDump();
+//        List<HashPack> hashPacks = new ArrayList<HashPack>();
+//        for (Image image : images)
+//        {
+//            HashPack hashPack = new HashPack();
+//            HashphaExample hashphaExample = new HashphaExample();
+//            hashphaExample.createCriteria().andIdEqualTo(image.getId());
+//            hashPack.setHashPha(hashphaDao.selectByExample(hashphaExample).get(0).getHash());
+//            HashcvaExample hashcvaExample = new HashcvaExample();
+//            hashcvaExample.createCriteria().andIdEqualTo(image.getId());
+//            hashPack.setHashCva(hashcvaDao.selectByExample(hashcvaExample).get(0).getHash());
+//
+//            hashPacks.add(hashPack);
+//        }
+//        int i=0;
+//        for (HashPack hashPack:hashPacks)
+//        {
+//            System.out.println(images.get(i)+""+hashPack);
+//            i++;
+//        }
+//    }
 
-            hashPacks.add(hashPack);
-        }
-        int i=0;
-        for (HashPack hashPack:hashPacks)
-        {
-            System.out.println(images.get(i)+""+hashPack);
-            i++;
-        }
-    }
-
-    @Test
-    public void singleCheck()
-    {
-        String str = "/home/hebly723/下载/aerials/3.2.25.tiff";
-        Mat mat = imread(str);
-        HashPack ans = new HashPack(mat);
-
-        List<Image> image = hashphaDao.selectHash(ans);
-        for (Image image1 : image)
-        {
-            System.out.println(image1);
-        }
-    }
+//    @Test
+//    public void singleCheck()
+//    {
+//        String str = "/home/hebly723/下载/aerials/3.2.25.tiff";
+//        Mat mat = imread(str);
+//        HashPack ans = new HashPack(mat);
+//
+//        List<Image> image = hashphaDao.selectHash(ans);
+//        for (Image image1 : image)
+//        {
+//            System.out.println(image1);
+//        }
+//    }
 }

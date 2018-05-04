@@ -1,7 +1,7 @@
 package com.graduate.test;
 
 import com.graduate.dao.HashcvaMapper;
-import com.graduate.dao.HashphaDao;
+import com.graduate.dao.HashphaMapper;
 import com.graduate.dao.ImageDao;
 import com.graduate.entity.HashPack;
 import com.graduate.entity.Image;
@@ -25,16 +25,16 @@ public class PhaDaoTest extends BaseTest {
     @Autowired
     private HashcvaMapper hashcvaDao;
     @Autowired
-    private HashphaDao hashphaDao;
-    @Test
-    public void selectHash(){
-        HashPack hashPack = new HashPack();
-//        hashPack.setHashCva("644dc6b663ded270");
-//        hashPack.setHashPha("b000000000000000");
-        List<Image> list = hashphaDao.selectHash(hashPack);
-        for (int i=0; i<list.size(); i++)
-        {
-            System.out.println(list.get(i));
-        }
-    }
+    private HashphaMapper hashphaDao;
+//    @Test
+//    public void selectHash(){
+//        HashPack hashPack = new HashPack();
+////        hashPack.setHashCva("644dc6b663ded270");
+////        hashPack.setHashPha("b000000000000000");
+//        List<Image> list = hashphaDao.selectHash(hashPack);
+//        for (int i=0; i<list.size(); i++)
+//        {
+//            System.out.println(list.get(i));
+//        }
+//    }
 }

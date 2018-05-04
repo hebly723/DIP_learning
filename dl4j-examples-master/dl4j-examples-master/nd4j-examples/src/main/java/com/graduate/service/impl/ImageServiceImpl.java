@@ -1,6 +1,6 @@
 package com.graduate.service.impl;
 
-import com.graduate.dao.HashphaDao;
+import com.graduate.dao.HashphaMapper;
 import com.graduate.dao.ImageDao;
 import com.graduate.entity.Image;
 import com.graduate.service.ImageService;
@@ -18,7 +18,7 @@ public class ImageServiceImpl implements ImageService {
   @Autowired
   private ImageDao imageDao;
   @Autowired
-  private HashphaDao hashphaDao;
+  private HashphaMapper hashphaDao;
 
 
   @Override

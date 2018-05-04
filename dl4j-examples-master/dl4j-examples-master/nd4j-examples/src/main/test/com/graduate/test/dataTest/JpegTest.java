@@ -4,7 +4,7 @@ import com.graduate.algorithm.Algorithm;
 import com.graduate.algorithm.impl.CVA;
 import com.graduate.algorithm.impl.PHA;
 import com.graduate.dao.HashcvaMapper;
-import com.graduate.dao.HashphaDao;
+import com.graduate.dao.HashphaMapper;
 import com.graduate.dao.ImageDao;
 import com.graduate.entity.*;
 import com.graduate.service.ExcelService;
@@ -28,7 +28,7 @@ import static org.opencv.imgcodecs.Imgcodecs.imread;
 public class JpegTest extends BaseTest{
     static{ System.loadLibrary(Core.NATIVE_LIBRARY_NAME); }
     @Autowired
-    private HashphaDao hashphaDao;
+    private HashphaMapper hashphaDao;
     @Autowired
     private HashcvaMapper hashcvaDao;
     @Autowired
@@ -75,7 +75,7 @@ public class JpegTest extends BaseTest{
                 PHA pha = new PHA();
                 HashPack hashPack1 = new HashPack();
 //                System.out.println(file1.getAbsolutePath());
-                String phaStr = pha.hashString(matTest).toString();
+                byte[] phaStr = pha.hashString(matTest);
 //                if (phaStr.equals(pha.hashString(k)))
 //                    System.out.println("right");
                 hashPack1.setHashPha(phaStr);
@@ -124,76 +124,76 @@ public class JpegTest extends BaseTest{
         }
 
     }
-
-    @Test
-    public void JPEGDataCollectCVA(){
-        File file = new File(prefix);
-        File[] files = file.listFiles();
-        Map<String, String> map = new HashMap();
-        for (File file1 : files)
-            map.put(file1.getName(), (new CVA()).hashString(imread(file1.getAbsolutePath())).toString());
-        List<Double> pList = new ArrayList<>();
-        for(int number = begin; number <= limit; number = number + pace ) {
-            List<KeyValue> list1 = new ArrayList();
-            for (File file1 : files) {
-//                System.out.println("_____________________---------------------------------");
-                System.out.println(number + file1.getName());
-                boolean flagCva = false;
-                JPEGOut.transferJPEG(imread(file1.getAbsolutePath()), path, number);
-//                Mat k = imread(file1.getAbsolutePath());
-                Mat matTest = imread(path);
-                CVA cva = new CVA();
-                HashPack hashPack1 = new HashPack();
-//                System.out.println(file1.getAbsolutePath());
-                byte[] cvaStr = cva.hashString(matTest);
-//                if (phaStr.equals(pha.hashString(k)))
-//                    System.out.println("right");
-                hashPack1.setHashCva(cvaStr);
-                try {
-                    List<Image> images = hashphaDao.selectHash(hashPack1);
-
-                for (Image image : images) {
-                        if (image.getDetail().equals(file1.getName()))
-                        {
-//                if (cvaStr.equals(map.get(file1.getName())))
-                           flagCva = true;
-                            break;
-                        }
-                    }
-                } catch (Exception e) {
-                }
-                KeyValue keyValue1 = new KeyValue();
-                keyValue1.put(file1.getAbsolutePath(), flagCva);
-                list1.add(keyValue1);
-            }
-//            System.out.println(list1.size()+"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            int pCount = 0;
-            for (KeyValue keyValue : list1) {
-                if (keyValue.value) {
-                    pCount++;
-//                    System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&"+pCount);
-                }
-            }
-            pList.add(((double) pCount) / list1.size());
-            list1.clear();
-        }
-        System.out.println("CVA");
-        ExcelService excelService = null;
-        try {
-            excelService = new textInfoImpl();
-            excelService.write(pList);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        int i = 0;
-        for(int number = begin; number < limit; number += pace )
-        {
-            System.out.println( number + "\t\t匹配百分比" + pList.get(i));
-            i++;
-        }
-
-    }
+//
+//    @Test
+//    public void JPEGDataCollectCVA(){
+//        File file = new File(prefix);
+//        File[] files = file.listFiles();
+//        Map<String, String> map = new HashMap();
+//        for (File file1 : files)
+//            map.put(file1.getName(), (new CVA()).hashString(imread(file1.getAbsolutePath())).toString());
+//        List<Double> pList = new ArrayList<>();
+//        for(int number = begin; number <= limit; number = number + pace ) {
+//            List<KeyValue> list1 = new ArrayList();
+//            for (File file1 : files) {
+////                System.out.println("_____________________---------------------------------");
+//                System.out.println(number + file1.getName());
+//                boolean flagCva = false;
+//                JPEGOut.transferJPEG(imread(file1.getAbsolutePath()), path, number);
+////                Mat k = imread(file1.getAbsolutePath());
+//                Mat matTest = imread(path);
+//                CVA cva = new CVA();
+//                HashPack hashPack1 = new HashPack();
+////                System.out.println(file1.getAbsolutePath());
+//                byte[] cvaStr = cva.hashString(matTest);
+////                if (phaStr.equals(pha.hashString(k)))
+////                    System.out.println("right");
+//                hashPack1.setHashCva(cvaStr);
+//                try {
+//                    List<Image> images = hashphaDao.selectHash(hashPack1);
+//
+//                for (Image image : images) {
+//                        if (image.getDetail().equals(file1.getName()))
+//                        {
+////                if (cvaStr.equals(map.get(file1.getName())))
+//                           flagCva = true;
+//                            break;
+//                        }
+//                    }
+//                } catch (Exception e) {
+//                }
+//                KeyValue keyValue1 = new KeyValue();
+//                keyValue1.put(file1.getAbsolutePath(), flagCva);
+//                list1.add(keyValue1);
+//            }
+////            System.out.println(list1.size()+"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+//            int pCount = 0;
+//            for (KeyValue keyValue : list1) {
+//                if (keyValue.value) {
+//                    pCount++;
+////                    System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&"+pCount);
+//                }
+//            }
+//            pList.add(((double) pCount) / list1.size());
+//            list1.clear();
+//        }
+//        System.out.println("CVA");
+//        ExcelService excelService = null;
+//        try {
+//            excelService = new textInfoImpl();
+//            excelService.write(pList);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        int i = 0;
+//        for(int number = begin; number < limit; number += pace )
+//        {
+//            System.out.println( number + "\t\t匹配百分比" + pList.get(i));
+//            i++;
+//        }
+//
+//    }
 
     @Test
     public void JPEGDataCollectImageData(){
@@ -229,7 +229,7 @@ public class JpegTest extends BaseTest{
             algorithm = new PHA();
             Hashpha hashpha = new Hashpha();
             hashpha.setId(images.get(0).getId());
-            hashpha.setHash(algorithm.hashString(mat).toString());
+            hashpha.setHash(algorithm.hashString(mat));
             hashphaDao.insertSelective(hashpha);
         }
 

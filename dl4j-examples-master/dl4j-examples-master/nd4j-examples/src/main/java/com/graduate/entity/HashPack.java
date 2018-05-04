@@ -5,7 +5,7 @@ import org.opencv.core.Mat;
 
 public class HashPack {
     private byte[] hashCva;
-    private String hashPha;
+    private byte[] hashPha;
 
     public HashPack(){
 
@@ -24,11 +24,11 @@ public class HashPack {
         this.hashCva = hashCva;
     }
 
-    public String getHashPha() {
+    public byte[] getHashPha() {
         return hashPha;
     }
 
-    public void setHashPha(String hashPha) {
+    public void setHashPha(byte[] hashPha) {
         this.hashPha = hashPha;
     }
 
